@@ -1,0 +1,2 @@
+Clean:
+	 Loss: 1.7545, Accuracy: 39.45

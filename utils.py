@@ -20,9 +20,9 @@ cifar10_classes = {
 }
 
 
-def save_model(model, args):
+def save_model(model_state, args):
     path_model = os.path.join(args.path, "model.pth")
-    torch.save(model.state_dict(), path_model)
+    torch.save(model_state, path_model)
 
 
 def load_model(model, path):
