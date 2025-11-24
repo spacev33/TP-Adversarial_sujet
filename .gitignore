@@ -6,7 +6,5 @@ __pycache__/
 *.pyd
 *.swp
 *.pth
-*.png
-*.jpg
 data/
 *.tar.gz
