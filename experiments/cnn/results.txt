@@ -12,3 +12,7 @@ Attack: fgsm 	 FGSM_1.00e-02
 	 Loss: 3.0844, Accuracy: 30.91
 Attack: fgsm 	 FGSM_1.00e-03
 	 Loss: 0.9243, Accuracy: 71.11
+Attack: pgd 	 PGDLinf_1.00e-01_1.00e-01_10
+	 Loss: 1.2882, Accuracy: 66.64
+Attack: pgd 	 PGDLinf_1.00e-01_1.00e-01_10
+	 Loss: 15.5613, Accuracy: 3.80

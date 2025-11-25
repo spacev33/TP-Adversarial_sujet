@@ -77,7 +77,7 @@ class ProjectedGradientDescent:
     def compute(self, x, y):
         """
         Generates an adversarial perturbation using PGD with L2 norm.
-
+        Le clip c'est pour jamais trop bruitter l'image
         Args:
             x (torch.Tensor): Original input images.
             y (torch.Tensor): True labels for the input images.
@@ -90,7 +90,19 @@ class ProjectedGradientDescent:
 
         # iteratively compute adversarial perturbations
         for t in range(self.num_iter):
-            ## To do 16
-            break
+            
+            criterion = nn.CrossEntropyLoss()
+            f_x = self.model(x+delta)
+            loss = criterion(f_x,y)
+            loss.backward()
+            grad = delta.grad.data
+            
+            to_clip = delta.data + self.alpha*grad.sign()
+            delta.data = to_clip.clamp(x-self.eps, x+self.eps)
+
+            delta.grad.zero_()
+            
+
+
 
         return delta.detach()
