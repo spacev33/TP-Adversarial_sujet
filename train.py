@@ -11,9 +11,9 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import CIFAR10
 
 from models import CNN, ResNet18, FC
-from utils import save_model, plot_results, train_iter, test_model, get_optimizer, visualize_results
+from utils import save_model, load_model, plot_results, train_iter, test_model, get_optimizer, visualize_results
 
-
+from math import inf
 
 def main(args):
     print('Training...')
@@ -70,6 +70,7 @@ def main(args):
     # Initialize a progress bar for tracking the progress of epochs
     pbar = tqdm.trange(args.epochs)
 
+    min_loss = inf
     # Loop through the specified number of epochs
     for epoch in pbar:
         # Create a progress bar for the batches in the training loop, set leave=False to avoid cluttering output
@@ -102,7 +103,12 @@ def main(args):
         plot_results(losses_train, losses_test, acc_train, acc_test, args)
 
         # To do 6
-        save_model(model, args)
+        if loss < min_loss:
+            min_loss = loss
+            best_model = model.state_dict()
+
+        save_model(best_model, args)
+        model = load_model(model, args.path)
         visualize_results(x_test, y_test, model, device, args)
 
     # Save the final results 

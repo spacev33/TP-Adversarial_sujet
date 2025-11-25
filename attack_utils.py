@@ -36,9 +36,12 @@ class FastGradientSignMethod:
         """
         # initialize the perturbation delta to zero, and require gradient for optimization
         delta = torch.zeros_like(x, requires_grad=True)
+        f_x = self.model(x+delta)
+        criterion = nn.CrossEntropyLoss()
+        loss = criterion(f_x, y)
+        loss.backward()
+        perturbation = self.eps * delta.grad.data.sign()
 
-        ## To do 12
-        raise NotImplementedError
         return perturbation
 
 
